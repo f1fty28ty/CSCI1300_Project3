@@ -6,20 +6,23 @@ See Epic RPG Discord bot for idea.
 
 singular level.
 
-Have different enemies. [Enemy Class]
+- [x] Have different enemies. [Enemy Class]
     Different attack DMG
     Different Health.
-Make a Boss. [Boss Class]
+
+- [ ] Make a Boss. [Boss Class]
     Different attack DMG
     Health scales on dmg up to lvl 10
     Different attacks the player can roll for
     stab/slash/power attack/heal different percents for it
-Make a profile / inventory [Player class]
+
+- [x] Make a profile / inventory [Player class]
     shows player health out of their max health
     shows level
     shows dmg
     shows def
-Make a shop [shop class]
+
+- [ ] Make a shop [shop class]
     buy health potions
     buy gear
         sword/armor
@@ -29,6 +32,11 @@ Make a shop [shop class]
     checks if the player already has this item
     depending what the player buys change the char
 
+- [ ] Make a level class
+has a nested class for the monsters of the area.
+the puts a time spent in the area
+
+- [ ] sort out all the time spent in the areas from most time to least time.
 
 
 Future plans:
