@@ -13,16 +13,16 @@ class Map
           static const int num_rows = 5;
           static const int num_cols = 9;
           static const int num_npcs = 3;
-          static const int num_hackers = 3;
+          static const int num_boss = 1;
 
           int playerPosition[2];
           int bestBuyPosition[2];
           int npcPositions[num_npcs][2];
-          int hackerPositions[num_hackers][2];
+          int bossPositions[num_boss][2];
           char mapData[num_rows][num_cols];
 
           int npc_count;
-          int hacker_count;
+          int boss_count;
           bool best_buy_on_map;
 
      public :
@@ -34,17 +34,17 @@ class Map
           int getPlayerRowPosition();
           int getPlayerColPosition();
           int getNPCCount();
-          int getHackerCount();
+          int getBossCount();
 
           // setters
           void setPlayerRowPosition(int);
           void setPlayerColPosition(int);
           void setNPCCount(int);
-          void setHackerCount(int);
+          void setBossCount(int);
 
           bool spawnNPC(int, int);
           bool spawnBestBuy(int, int);
-          bool spawnHacker(int, int);
+          bool spawnBoss(int, int);
 
           void displayMap();
           void displayMoves();  
@@ -52,7 +52,7 @@ class Map
 
           bool isBestBuyLocation();
           bool isNPCLocation();
-          bool isHackerLocation();
+          bool isBossLocation();
 
           bool isBestBuyOnMap();
 };

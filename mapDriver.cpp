@@ -7,7 +7,7 @@ int main() {
     map.spawnBestBuy(1, 3);
     map.spawnNPC(2, 5);
     map.spawnNPC(3, 8);
-    map.spawnHacker(1, 1);
+    map.spawnBoss(1, 1);
 
     char move;  // for storing user input
 
@@ -27,7 +27,7 @@ int main() {
             cout << "You're in a Best Buy!" << endl;
         }
 
-        if (map.isHackerLocation()) {
+        if (map.isBossLocation()) {
             cout << "You've encountered a Hacker!" << endl;
         }
 

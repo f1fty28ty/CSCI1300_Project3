@@ -16,7 +16,7 @@ void Map::resetMap() {
     bestBuyPosition[1] = -1;
 
     npc_count = 0;
-    hacker_count = 0;
+    boss_count = 0;
     best_buy_on_map = false;
 
     for (int i = 0; i < num_npcs; i++) {
@@ -24,14 +24,14 @@ void Map::resetMap() {
         npcPositions[i][1] = -1;
     }
 
-    for (int i = 0; i < num_hackers; i++) {
-        hackerPositions[i][0] = -1;
-        hackerPositions[i][1] = -1;
+    for (int i = 0; i < num_boss; i++) {
+        bossPositions[i][0] = -1;
+        bossPositions[i][1] = -1;
     }
 
     for (int i = 0; i < num_rows; i++) {
         for (int j = 0; j < num_cols; j++) {
-            mapData[i][j] = '-';
+            mapData[i][j] = char(43);
         }
     }
 }
@@ -50,8 +50,8 @@ int Map::getNPCCount() {
     return npc_count;
 }
 
-int Map::getHackerCount() {
-    return hacker_count;
+int Map::getBossCount() {
+    return boss_count;
 }
 
 // set player's row position to parameter row
@@ -68,8 +68,8 @@ void Map::setNPCCount(int count) {
     npc_count = count;
 }
 
-void Map::setHackerCount(int count) {
-    hacker_count = count;
+void Map::setBossCount(int count) {
+    boss_count = count;
 }
 
 /* add Hacker to map
@@ -78,26 +78,26 @@ void Map::setHackerCount(int count) {
  *                      or if (row, col) is an invalid position
  *                      or if (row, col) is already populated; else true
  */
-bool Map::spawnHacker(int row, int col) {
+bool Map::spawnBoss(int row, int col) {
     // out of map bounds
     if (!(row >= 0 && row < num_rows && col >= 0 && col < num_cols)) {
         return false;
     }
 
-    if (hacker_count >= num_hackers) {
+    if (boss_count >= num_boss) {
         return false;
     }
 
     // location must be blank to spawn
-    if (mapData[row][col] != '-') {
+    if (mapData[row][col] != char(43)) {
         return false;
     }
 
-    if (hackerPositions[hacker_count][0] == -1 && hackerPositions[hacker_count][1] == -1) {
-        hackerPositions[hacker_count][0] = row;
-        hackerPositions[hacker_count][1] = col;
-        mapData[row][col] = 'H';
-        hacker_count++;
+    if (bossPositions[boss_count][0] == -1 && bossPositions[boss_count][1] == -1) {
+        bossPositions[boss_count][0] = row;
+        bossPositions[boss_count][1] = col;
+        mapData[row][col] = char(43);
+        boss_count++;
         return true;
     }
 
@@ -121,7 +121,7 @@ bool Map::spawnNPC(int row, int col) {
     }
 
     // location must be blank to spawn
-    if (mapData[row][col] != '-') {
+    if (mapData[row][col] != char(43)) {
         return false;
     }
 
@@ -149,7 +149,7 @@ bool Map::spawnBestBuy(int row, int col) {
     }
 
     // location must be blank to spawn
-    if (mapData[row][col] != '-') {
+    if (mapData[row][col] != char(43)) {
         return false;
     }
 
@@ -160,7 +160,7 @@ bool Map::spawnBestBuy(int row, int col) {
     if (bestBuyPosition[0] == -1 && bestBuyPosition[1] == -1) {
         bestBuyPosition[0] = row;
         bestBuyPosition[1] = col;
-        mapData[row][col] = 'B';
+        mapData[row][col] = char(94);
         best_buy_on_map = true;
         return true;
     }
@@ -184,9 +184,9 @@ bool Map::isNPCLocation(){
 }
 
 // return true if x, y position has a hacker there
-bool Map::isHackerLocation() {
-    for(int i = 0; i < num_hackers; i++){
-        if(hackerPositions[i][0] == playerPosition[0] && hackerPositions[i][1] == playerPosition[1]){
+bool Map::isBossLocation() {
+    for(int i = 0; i < num_boss; i++){
+        if(bossPositions[i][0] == playerPosition[0] && bossPositions[i][1] == playerPosition[1]){
             return true; 
         }
     }
@@ -256,8 +256,8 @@ void Map::displayMap() {
         for (int j = 0; j < num_cols; j++) {
             if (playerPosition[0] == i && playerPosition[1] == j) {
                 cout << "x";
-            } else if (mapData[i][j] == 'H') {  // don't show hacker on the map
-                cout << "-";
+            } else if (mapData[i][j] == 'D') {  // don't show hacker on the map
+                cout << char(43);
             }
             else {
                 cout << mapData[i][j];

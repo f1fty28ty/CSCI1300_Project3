@@ -149,52 +149,8 @@ void Player::printProfile(){
     cout << "Damage: "<< dmg << endl;
     cout << "Defense: " << def << endl;
     cout << "Gold Coins: " << money << endl;
-    switch(sword){
-        case 's':
-            cout << "Sword: Legendary Sword" << endl;
-        break;
-        case 'a':
-            cout << "Sword: Mythical Sword" << endl;
-        break;
-        case 'b':
-            cout << "Sword: Kings' Sword" << endl;
-        break;
-        case 'c':
-            cout << "Sword: Knights' Sword" << endl;
-        break;
-        case 'd':
-            cout << "Sword: Sqires' Sword" << endl;
-        break;
-        case 'f':
-            cout << "Sword: Basic Sword" << endl;
-        break;
-        default:
-            cout << "Sword: N/A" << endl;
-        break;
-    }
-    switch(armor){
-        case 's':
-            cout << "Armor: Legendary Armor" << endl;
-        break;
-        case 'a':
-            cout << "Armor: Mythical Armor" << endl;
-        break;
-        case 'b':
-            cout << "Armor: Kings' Armor" << endl;
-        break;
-        case 'c':
-            cout << "Armor: Knights' Armor" << endl;
-        break;
-        case 'd':
-            cout << "Armor: Sqires' Armor" << endl;
-        break;
-        case 'f':
-            cout << "Armor: Basic Armor" << endl;
-        break;
-        default:
-            cout << "Armor: N/A" << endl;
-        break;
-    }
+    getSword();
+    getArmor();
     cout << "Health Potions: " << numPotion << endl;
     if(key == ""){
         cout << "Key: None" << endl;
