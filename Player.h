@@ -31,9 +31,9 @@ public:
     char getArmor();
     void printProfile();
 private:
-    int currentHealth = 100;
-    const int maxHealth = 100;
     string name;
+    int currentHealth = 100;
+    int maxHealth = 100;
     int dmg;
     int def;
     int lvl;
