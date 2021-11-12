@@ -11,8 +11,8 @@ Player::Player(){
     currentExp = 0;
     maxExp = 100;
     money = 100;
-    armor = 't';
-    sword = 't';
+    armor = 'p';
+    sword = 'p';
     key = "";
     numPotion = 0;
 }
@@ -36,7 +36,7 @@ int Player::addExp(int addedExp){
     return currentExp;
 }
 
-string Player::setName(string newName){
+void Player::setName(string newName){
     name = newName;
 }
 void Player::lvlUp(){
@@ -62,6 +62,9 @@ void Player::setSword(char newSword){
 }
 void Player::setArmor(char newArmor){
     armor = newArmor;
+}
+void Player::takeDmg(int dmg){
+    currentHealth -= dmg;
 }
 //Getter
 string Player::getName(){
