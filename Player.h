@@ -17,6 +17,7 @@ public:
     void addMoney(int newMoney);
     void setSword(char newSword);
     void setArmor(char newArmor);
+    void takeDmg (int dmg);
     //Getter
     string getName();
     int getLvl();

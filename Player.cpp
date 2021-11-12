@@ -62,6 +62,9 @@ void Player::setSword(char newSword){
 void Player::setArmor(char newArmor){
     armor = newArmor;
 }
+void Player::takeDmg(int dmg){
+    currentHealth -= dmg;
+}
 //Getter
 string Player::getName(){
     return name;
