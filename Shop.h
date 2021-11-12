@@ -14,9 +14,9 @@ class Shop{
     void setPrice(int newPrice);
     string getItemName();
     void setItemName(string newName);
-    bool itemBought(string itemName);
+    //bool itemBought(string itemName);
     void populateInventory(string shopFile);
-    int printMenu(string shopInventory[], int playerMoney);
+    //int printMenu(string shopInventory[], int playerMoney);
 
 
     private:
@@ -27,5 +27,5 @@ class Shop{
     string itemFile;
     string itemName;
     string newItem;
-    string shopInventory[placeholder];
+    //string shopInventory[placeholder];
 };
