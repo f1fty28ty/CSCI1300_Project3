@@ -3,6 +3,7 @@
 //Constructor   
 Player::Player(){
     currentHealth = 100;
+    maxHealth = 100;
     name = "";
     dmg = 10;
     def = 10;
@@ -10,8 +11,8 @@ Player::Player(){
     currentExp = 0;
     maxExp = 100;
     money = 100;
-    armor = '';
-    sword = '';
+    armor = 't';
+    sword = 't';
     key = "";
     numPotion = 0;
 }
@@ -54,16 +55,13 @@ void Player::setDef(int newDef){
     def = newDef;
 }
 void Player::addMoney(int newMoney){
-    money += newMoney
+    money += newMoney;
 }
 void Player::setSword(char newSword){
     sword = newSword;
 }
 void Player::setArmor(char newArmor){
     armor = newArmor;
-}
-void Player::takeDmg(int dmg){
-    currentHealth -= dmg;
 }
 //Getter
 string Player::getName(){
