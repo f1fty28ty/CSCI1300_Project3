@@ -9,7 +9,7 @@ public:
     Player();
     //Setters
     void heal();
-    void addExp(int addedExp);
+    int addExp(int addedExp);
     string setName(string newName);
     void lvlUp();
     void setDmg(int newDmg);
@@ -17,7 +17,6 @@ public:
     void addMoney(int newMoney);
     void setSword(char newSword);
     void setArmor(char newArmor);
-    void takeDmg (int dmg);
     //Getter
     string getName();
     int getLvl();
@@ -32,9 +31,9 @@ public:
     char getArmor();
     void printProfile();
 private:
+    int currentHealth;
+    const int maxHealth;
     string name;
-    int currentHealth = 100;
-    int maxHealth = 100;
     int dmg;
     int def;
     int lvl;
