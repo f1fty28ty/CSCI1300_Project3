@@ -6,5 +6,5 @@ Building up their cash to purchase the best of the best equipments and to find r
 
 > This project is heavily inspired by the Discord game Epic RPG.
 
-**See Issues for the TODO list**
+**See Projects/project-3-kanban for the TODO list**
 
