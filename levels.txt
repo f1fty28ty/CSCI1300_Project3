@@ -1,0 +1,6 @@
+Beginnings,4,0,Green Slime,Blue Slime,Red Slime,Gold Slime
+First Town,4,2,Wolf,Zombie,Enlarged Rat,Red Neck
+Ganga Village,4,3,Goblin,Goblin Archer,Goblin Shaman,Goblin Warrior
+Rocky Roads,4,4,Bandit,Bandit Assasin,Bandit Rogue,Bandit Warrior
+Vicious Volcano,4,5,Wyvern,Lava Wurm,Young Dragon,Magma Turtle
+Boss's Hideout,4,6,Juvenile Dragon,Adult Dragon,Black Magic Wizards,Balrog
