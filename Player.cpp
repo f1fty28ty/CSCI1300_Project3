@@ -57,6 +57,9 @@ void Player::setDef(int newDef){
 void Player::addMoney(int newMoney){
     money += newMoney;
 }
+void Player::setMoney(int newMoney){
+    money = newMoney
+}
 void Player::setSword(char newSword){
     sword = newSword;
 }
@@ -65,6 +68,27 @@ void Player::setArmor(char newArmor){
 }
 void Player::takeDmg(int dmg){
     currentHealth -= dmg;
+}
+void Player::setCurrentHealth(int newHp){
+    currentHealth = newHp
+}
+void Player::setMaxHealth(int newHp){
+    maxHealth = newHp;
+}
+void Player::setCurrentExp(int newXp){
+    currentExp = newXp;
+}
+void Player::setMaxExp(int newXp){
+    maxExp = newXp;
+}
+void Player::setLvl(int newLvl){
+    lvl = newLvl;
+}
+void Player::setKey(String newKey){
+    key = newKey;
+}
+void Player::setPotions(int newPotion){
+    numPotion = newPotion
 }
 //Getter
 string Player::getName(){
@@ -94,71 +118,15 @@ int Player::getCurrentExp(){
 int Player::getMaxExp(){
     return maxExp;
 }
+string Player::getKey(){
+    return key
+}
+int Player::getPotions(){
+    return numPotion;
+}
 char Player::getSword(){
-    switch(sword){
-    case 's':
-        cout << "Sword: Legendary Sword" << endl;
-    break;
-    case 'a':
-        cout << "Sword: Mythical Sword" << endl;
-    break;
-    case 'b':
-        cout << "Sword: Kings' Sword" << endl;
-    break;
-    case 'c':
-        cout << "Sword: Knights' Sword" << endl;
-    break;
-    case 'd':
-        cout << "Sword: Sqires' Sword" << endl;
-    break;
-    case 'f':
-        cout << "Sword: Basic Sword" << endl;
-    break;
-    default:
-        cout << "Sword: N/A" << endl;
-    break;
-    }
     return sword;
 }
 char Player::getArmor(){
-    switch(armor){
-        case 's':
-            cout << "Armor: Legendary Armor" << endl;
-        break;
-        case 'a':
-            cout << "Armor: Mythical Armor" << endl;
-        break;
-        case 'b':
-            cout << "Armor: Kings' Armor" << endl;
-        break;
-        case 'c':
-            cout << "Armor: Knights' Armor" << endl;
-        break;
-        case 'd':
-            cout << "Armor: Sqires' Armor" << endl;
-        break;
-        case 'f':
-            cout << "Armor: Basic Armor" << endl;
-        break;
-        default:
-            cout << "Armor: N/A" << endl;
-        break;
-    }
     return armor;
-}
-void Player::printProfile(){
-    cout << "==========" << name << "'s Profile==========" << endl;
-    cout << "Level: " << lvl << endl;
-    cout << "Health: " << currentHealth << "/" << maxHealth << endl;
-    cout << "Damage: "<< dmg << endl;
-    cout << "Defense: " << def << endl;
-    cout << "Gold Coins: " << money << endl;
-    getSword();
-    getArmor();
-    cout << "Health Potions: " << numPotion << endl;
-    if(key == ""){
-        cout << "Key: None" << endl;
-    }else{
-        cout << "Key: " << key << endl;
-    }
 }

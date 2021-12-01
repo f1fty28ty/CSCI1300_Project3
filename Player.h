@@ -15,9 +15,17 @@ public:
     void setDmg(int newDmg);
     void setDef(int newDef);
     void addMoney(int newMoney);
+    void setMoney(int newMoney)
     void setSword(char newSword);
     void setArmor(char newArmor);
     void takeDmg (int dmg);
+    void setCurrentHealth(int newHp);
+    void setMaxHealth(int newHp);
+    void setCurrentExp(int newXp);
+    void setMaxExp(int newXp);
+    void setLvl(int newLvl);
+    void setKey(String newKey);
+    void setPotions(int newPotion)
     //Getter
     string getName();
     int getLvl();
@@ -30,7 +38,8 @@ public:
     int getMaxExp();
     char getSword();
     char getArmor();
-    void printProfile();
+    string getKey();
+    int getPotions()
 private:
     string name;
     int currentHealth;
