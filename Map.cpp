@@ -12,26 +12,21 @@ void Map::resetMap() {
     playerPosition[0] = 0; 
     playerPosition[1] = 0;
 
-    bestBuyPosition[0] = -1;
-    bestBuyPosition[1] = -1;
+    shop_count = 0;
+    level_count = 0;
+    level_on_map = false;
 
-    npc_count = 0;
-    boss_count = 0;
-    best_buy_on_map = false;
-
-    for (int i = 0; i < num_npcs; i++) {
-        npcPositions[i][0] = -1;
-        npcPositions[i][1] = -1;
+    for (int i = 0; i < num_Shops; i++) {
+        shopPositions[i][0] = -1;
+        shopPositions[i][1] = -1;
     }
-
-    for (int i = 0; i < num_boss; i++) {
-        bossPositions[i][0] = -1;
-        bossPositions[i][1] = -1;
+    for (int i = 0; i < num_Levels; i++) {
+        levelPosition[i][0] = -1;
+        levelPosition[i][1] = -1;
     }
-
     for (int i = 0; i < num_rows; i++) {
         for (int j = 0; j < num_cols; j++) {
-            mapData[i][j] = char(43);
+            mapData[i][j] = '-';
         }
     }
 }
@@ -46,14 +41,13 @@ int Map::getPlayerColPosition() {
     return playerPosition[1];
 }
 
-int Map::getNPCCount() {
-    return npc_count;
+int Map::getShopCount() {
+    return shop_count;
 }
 
-int Map::getBossCount() {
-    return boss_count;
+int Map::getLevelCount() {
+    return level_count;
 }
-
 // set player's row position to parameter row
 void Map::setPlayerRowPosition(int row) {
     playerPosition[0] = row;
@@ -64,44 +58,12 @@ void Map::setPlayerColPosition(int col) {
     playerPosition[1] = col;
 }
 
-void Map::setNPCCount(int count) {
-    npc_count = count;
+void Map::setShopCount(int count) {
+    shop_count = count;
 }
 
-void Map::setBossCount(int count) {
-    boss_count = count;
-}
-
-/* add Hacker to map
- * Parameters: where to spawn Hacker -- row (int), col (int)
- * Return: (bool) false if no more space in hackerPositions array
- *                      or if (row, col) is an invalid position
- *                      or if (row, col) is already populated; else true
- */
-bool Map::spawnBoss(int row, int col) {
-    // out of map bounds
-    if (!(row >= 0 && row < num_rows && col >= 0 && col < num_cols)) {
-        return false;
-    }
-
-    if (boss_count >= num_boss) {
-        return false;
-    }
-
-    // location must be blank to spawn
-    if (mapData[row][col] != char(43)) {
-        return false;
-    }
-
-    if (bossPositions[boss_count][0] == -1 && bossPositions[boss_count][1] == -1) {
-        bossPositions[boss_count][0] = row;
-        bossPositions[boss_count][1] = col;
-        mapData[row][col] = char(43);
-        boss_count++;
-        return true;
-    }
-
-    return false;
+void Map::setLevelCount(int count) {
+    level_count = count;
 }
 
 /* add NPC to map
@@ -110,26 +72,26 @@ bool Map::spawnBoss(int row, int col) {
  *                      or if (row, col) is an invalid position
  *                      or if (row, col) is already populated; else true
  */
-bool Map::spawnNPC(int row, int col) {
+bool Map::spawnShop(int row, int col) {
     // out of map bounds
     if (!(row >= 0 && row < num_rows && col >= 0 && col < num_cols)) {
         return false;
     }
 
-    if (npc_count >= num_npcs) {
+    if (shop_count >= num_Shops) {
         return false;
     }
 
     // location must be blank to spawn
-    if (mapData[row][col] != char(43)) {
+    if (mapData[row][col] != '-') {
         return false;
     }
 
-    if (npcPositions[npc_count][0] == -1 && npcPositions[npc_count][1] == -1) {
-        npcPositions[npc_count][0] = row;
-        npcPositions[npc_count][1] = col;
-        mapData[row][col] = 'N';
-        npc_count++;
+    if (shopPositions[shop_count][0] == -1 && shopPositions[shop_count][1] == -1) {
+        shopPositions[shop_count][0] = row;
+        shopPositions[shop_count][1] = col;
+        mapData[row][col] = 'S';
+        shop_count++;
         return true;
     }
 
@@ -142,26 +104,26 @@ bool Map::spawnNPC(int row, int col) {
  *                      or if (row, col) is already populated
  *                      or if there is a best buy already on the map; else true
  */
-bool Map::spawnBestBuy(int row, int col) {
+bool Map::spawnLevel(int row, int col) {
     // out of map bounds
+
     if (!(row >= 0 && row < num_rows && col >= 0 && col < num_cols)) {
         return false;
     }
-
+    if (level_count >= num_Levels) {
+        return false;
+    }
     // location must be blank to spawn
-    if (mapData[row][col] != char(43)) {
+    if (mapData[row][col] != '-') {
         return false;
     }
 
-    if (best_buy_on_map) {
-        return false;
-    }
-
-    if (bestBuyPosition[0] == -1 && bestBuyPosition[1] == -1) {
-        bestBuyPosition[0] = row;
-        bestBuyPosition[1] = col;
-        mapData[row][col] = char(94);
-        best_buy_on_map = true;
+    if (levelPosition[level_count][0] == -1 && levelPosition[level_count][1] == -1) {
+        levelPosition[level_count][0] = row;
+        levelPosition[level_count][1] = col;
+        mapData[row][col] = 'L';
+        level_count++;
+        level_on_map = true;
         return true;
     }
 
@@ -169,24 +131,19 @@ bool Map::spawnBestBuy(int row, int col) {
 }
 
 // return true if x, y position has a best buy there
-bool Map::isBestBuyLocation(){
-    return bestBuyPosition[0] == playerPosition[0] && bestBuyPosition[1] == playerPosition[1];
-}
-
-// return true if x, y position has an npc there
-bool Map::isNPCLocation(){
-    for(int i = 0; i < num_npcs; i++){
-        if(npcPositions[i][0] == playerPosition[0] && npcPositions[i][1] == playerPosition[1]){
+bool Map::isLevelLocation(){
+    for(int i = 0; i < num_Levels; i++){
+        if(levelPosition[i][0] == playerPosition[0] && levelPosition[i][1] == playerPosition[1]){
             return true; 
         }
     }
     return false; 
 }
 
-// return true if x, y position has a hacker there
-bool Map::isBossLocation() {
-    for(int i = 0; i < num_boss; i++){
-        if(bossPositions[i][0] == playerPosition[0] && bossPositions[i][1] == playerPosition[1]){
+// return true if x, y position has an npc there
+bool Map::isShopLocation(){
+    for(int i = 0; i < num_Shops; i++){
+        if(shopPositions[i][0] == playerPosition[0] && shopPositions[i][1] == playerPosition[1]){
             return true; 
         }
     }
@@ -257,7 +214,7 @@ void Map::displayMap() {
             if (playerPosition[0] == i && playerPosition[1] == j) {
                 cout << "x";
             } else if (mapData[i][j] == 'D') {  // don't show hacker on the map
-                cout << char(43);
+                cout << '-';
             }
             else {
                 cout << mapData[i][j];
@@ -265,9 +222,4 @@ void Map::displayMap() {
         }
         cout << endl;
     }
-}
-
-// returns true if there is already a Best Buy on the map
-bool Map::isBestBuyOnMap() {
-    return best_buy_on_map;
 }
