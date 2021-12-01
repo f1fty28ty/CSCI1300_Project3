@@ -1,40 +1,25 @@
+#ifndef Level
+#define Level
 #include <iostream>
 #include <vector>
+#include "Enemy.h"
 
 using namespace std;
 
 class Level{
 public:
-    Level(){
-        lvlname = "Beginnings";
-        numMobs = 4;
-        lvlMobs[0].setName("Green Slime");
-        lvlMobs[1].setName("Blue Slime");
-        lvlMobs[2].setName("Red Slime");
-        lvlMobs[3].setName("Gold Slime");
-        for(int i = 0; i < numMobs; i++){
-            lvlMobs[i].setXP(10);
-            lvlMobs[i].setMoney(10);
-            lvlMobs[i].setDmg(10);
-        }
-    }
-    Level(string newName,int newNumMobs,Enemy newMobs[],int newDif){
-        lvlname = newName;
-        if(newNumMobs > numMobs){
-            numMobs = 4;
-        }else if(newNumMobs < numMobs){
-            
-        }
-    }
-    //get diff
+    Level();
+    Level(string,int,Enemy,int);
+
+    //mobs for the level.
     class Mobs{
     public:
-        Enemy();
+        Mobs();
         //setters
-        void setName(string newName);
-        void setDmg(int newDmg);
-        void setMoney(int newMoney);
-        void setXp(int newXp);
+        void setName(string);
+        void setDmg(int);
+        void setMoney(int);
+        void setXp(int);
         //getter
         int getDmg();
         string getName();
@@ -52,3 +37,4 @@ private:
     int numMobs;
     int lvlmulti;
 };
+#endif
