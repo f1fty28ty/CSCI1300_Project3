@@ -21,30 +21,30 @@ Level::Level(string newName,int newNumMobs,Enemy newMobs[],int newDif){
     numMobs = 4;
     if(newNumMobs > numMobs){
         for(int i = 0;i < numMobs;i++){
-            lvlMobs[i] = Enemy();
-            lvlMobs[i] = newMobs[i];
+            lvlMobs[i] = Mobs();
+            lvlMobs[i].setName(newMobs[i].getName());
             lvlMobs[i].setXp(10*lvlmulti);
             lvlMobs[i].setMoney(10*lvlmulti);
             lvlMobs[i].setDmg(10*lvlmulti);
         }
     }else if(newNumMobs < numMobs){
         for(int i = 0; i < newNumMobs; i++){
-            lvlMobs[i] = Enemy();
-            lvlMobs[i] = newMobs[i];
+            lvlMobs[i] = Mobs();
+            lvlMobs[i].setName(newMobs[i].getName());
             lvlMobs[i].setXp(10*lvlmulti);
             lvlMobs[i].setMoney(10*lvlmulti);
             lvlMobs[i].setDmg(10*lvlmulti);
         }
         for(int i = newNumMobs;i < numMobs;i++){
-            lvlMobs[i] = Enemy();
+            lvlMobs[i] = Mobs();
             lvlMobs[i].setXp(10*lvlmulti);
             lvlMobs[i].setMoney(10*lvlmulti);
             lvlMobs[i].setDmg(10*lvlmulti);
         }
     }else{
         for(int i = 0;i < numMobs;i++){
-            lvlMobs[i] = Enemy();
-            lvlMobs[i] = newMobs[i];
+            lvlMobs[i] = Mobs();
+            lvlMobs[i].setName(newMobs[i].getName());
             lvlMobs[i].setXp(10*lvlmulti);
             lvlMobs[i].setMoney(10*lvlmulti);
             lvlMobs[i].setDmg(10*lvlmulti);
