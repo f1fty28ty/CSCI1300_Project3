@@ -1,3 +1,4 @@
+
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -7,26 +8,32 @@ using namespace std;
 class Items{
 
     public:
-    Items(string atkName, string defName);
-    string getAtkName();
-    void setAtkName(string newAtkName);
+    Items();
     int getAtk();
-    void setAtk(int newAtk);
+    void setAtk(string itematk);
+    string getAtkName();
     string getDefName();
-    void setDefName(string newDefName);
+    void setAtkName(int index);
+    void setDefName(int index);
     int getDef();
-    void setDef(int newDef);
-    void populateStats(string statFile, string itemName);
+    void setDef(string itemdef);
+    void populateStats();
+    int getAtkPrice(string itematk);
+    int getDefPrice(string itemdef);
 
     private:
-    string loadoutStats[3];
-    string atkName;
-    string defName;
-    string newAtkName;
-    string newDefName;
+    int index;
+    string atkstat[7];
+    string atkname[7];
+    string atkprice[7];
+    string defstat[7];
+    string defname[7];
+    string defprice[7];
+    string atkitemname = "j";
+    string defitemname = "j";
+    string itematk;
+    string itemdef;
     int atk;
     int def;
-    int newAtk;
-    int newDef;
     string statFile;
 };
