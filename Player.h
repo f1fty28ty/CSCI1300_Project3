@@ -15,7 +15,7 @@ public:
     void setDmg(int newDmg);
     void setDef(int newDef);
     void addMoney(int newMoney);
-    void setMoney(int newMoney)
+    void setMoney(int newMoney);
     void setSword(char newSword);
     void setArmor(char newArmor);
     void takeDmg (int dmg);
@@ -24,8 +24,8 @@ public:
     void setCurrentExp(int newXp);
     void setMaxExp(int newXp);
     void setLvl(int newLvl);
-    void setKey(String newKey);
-    void setPotions(int newPotion)
+    void setKey(string newKey);
+    void setPotions(int newPotion);
     //Getter
     string getName();
     int getLvl();
@@ -39,19 +39,19 @@ public:
     char getSword();
     char getArmor();
     string getKey();
-    int getPotions()
+    int getPotions();
 private:
     string name;
-    int currentHealth;
-    int maxHealth;
-    int dmg;
-    int def;
-    int lvl;
-    int currentExp;
-    int maxExp;
-    int money;
+    long int currentHealth;
+    long int maxHealth;
+    long int dmg;
+    long int def;
+    long int lvl;
+    long int currentExp;
+    long int maxExp;
+    long int money;
     char armor;
     char sword;
     string key;
-    int numPotion;
+    long int numPotion;
 };
