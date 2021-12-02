@@ -1,4 +1,3 @@
-
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -31,9 +30,10 @@ class Items{
     string defprice[7];
     string atkitemname = "j";
     string defitemname = "j";
-    string itematk;
-    string itemdef;
+    string itematk = "j";
+    string itemdef = "j";
     int atk;
     int def;
     string statFile;
 };
+

@@ -58,7 +58,7 @@ void Player::addMoney(int newMoney){
     money += newMoney;
 }
 void Player::setMoney(int newMoney){
-    money = newMoney
+    money = newMoney;
 }
 void Player::setSword(char newSword){
     sword = newSword;
@@ -70,7 +70,7 @@ void Player::takeDmg(int dmg){
     currentHealth -= dmg;
 }
 void Player::setCurrentHealth(int newHp){
-    currentHealth = newHp
+    currentHealth = newHp;
 }
 void Player::setMaxHealth(int newHp){
     maxHealth = newHp;
@@ -84,11 +84,11 @@ void Player::setMaxExp(int newXp){
 void Player::setLvl(int newLvl){
     lvl = newLvl;
 }
-void Player::setKey(String newKey){
+void Player::setKey(string newKey){
     key = newKey;
 }
 void Player::setPotions(int newPotion){
-    numPotion = newPotion
+    numPotion = newPotion;
 }
 //Getter
 string Player::getName(){
@@ -119,7 +119,7 @@ int Player::getMaxExp(){
     return maxExp;
 }
 string Player::getKey(){
-    return key
+    return key;
 }
 int Player::getPotions(){
     return numPotion;
