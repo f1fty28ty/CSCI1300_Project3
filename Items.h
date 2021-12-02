@@ -22,16 +22,16 @@ class Items{
 
     private:
     int index;
-    string atkstat[7];
+    long int atkstat[7];
     string atkname[7];
-    string atkprice[7];
-    string defstat[7];
+    long int atkprice[7];
+    long int defstat[7];
     string defname[7];
-    string defprice[7];
-    string atkitemname = "j";
-    string defitemname = "j";
-    string itematk = "j";
-    string itemdef = "j";
+    long int defprice[7];
+    string atkitemname;
+    string defitemname;
+    string itematk;
+    string itemdef;
     int atk;
     int def;
     string statFile;

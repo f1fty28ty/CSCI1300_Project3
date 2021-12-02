@@ -11,8 +11,8 @@ Player::Player(){
     currentExp = 0;
     maxExp = 100;
     money = 100;
-    armor = 'p';
-    sword = 'p';
+    armor = 'j';
+    sword = 'j';
     key = "";
     numPotion = 0;
 }

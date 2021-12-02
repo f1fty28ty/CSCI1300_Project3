@@ -85,9 +85,9 @@ int Items::getAtk(){
 
 void Items::setAtk(string itematk){
     int newAtk = 0;
-    for (int i = 0; i < 6; i++){
+    for (int i = 0; i < 7; i++){
         if (atkname[i] == itematk){
-            newAtk = stol(atkstat[i]);
+            newAtk = atkstat[i];
         }
     }
     if (newAtk == 0) {
@@ -102,9 +102,9 @@ int Items::getDef(){
 
 void Items::setDef(string itemdef){
     int newDef;
-    for (int i = 0; i < 6; i++){
+    for (int i = 0; i < 7; i++){
         if (defname[i] == itemdef){
-            newDef = stol(defstat[i]);
+            newDef = defstat[i];
         }
     }
     if (newDef == 0) {
@@ -115,49 +115,49 @@ void Items::setDef(string itemdef){
 
 int Items::getAtkPrice(string itematk){
     if (itematk == "s") {
-        return stol(atkprice[0]);
+        return atkprice[0];
     }
     else if (itematk == "a") {
-        return stol(atkprice[1]);
+        return atkprice[1];
     }
     else if (itematk == "b") {
-        return stol(atkprice[2]);
+        return atkprice[2];
     }
     else if (itematk == "c") {
-        return stol(atkprice[3]);
+        return atkprice[3];
     }
     else if (itematk == "d") {
-        return stol(atkprice[4]);
+        return atkprice[4];
     }
     else if (itematk == "f") {
-        return stol(atkprice[5]);
+        return atkprice[5];
     }
     else {
-        return stol(atkprice[6]);
+        return atkprice[6];
     }
 }
 
 int Items::getDefPrice(string itemdef){
     if (itemdef == "s") {
-        return stol(defprice[0]);
+        return defprice[0];
     }
     else if (itemdef == "a"){
-        return stol(defprice[1]);
+        return defprice[1];
     }
     else if (itemdef == "b"){
-        return stol(defprice[2]);
+        return defprice[2];
     }
     else if (itemdef == "c"){
-        return stol(defprice[3]);
+        return defprice[3];
     }
     else if (itemdef == "d"){
-        return stol(defprice[4]);
+        return defprice[4];
     }
     else if (itemdef == "f"){
-        return stol(defprice[5]);
+        return defprice[5];
     }
     else {
-        return stol(defprice[6]);
+        return defprice[6];
     }
 }
 string Items::getAtkName(){
@@ -220,27 +220,29 @@ void Items::setDefName(int index){
 void Items::populateStats(){
     string fileoutput;
     int i = 0;
-    string str[20];
+    string str[5];
     ifstream in2;
-    in2.open(statFile);
+    in2.open("items.txt");
     while(getline(in2,fileoutput)){
         split1(fileoutput,',',str,5);
         if (i < 6){
-            atkstat[i] = str[1];
+            atkstat[i] = stoi(str[1]);
             atkname[i] = str[0];
-            atkprice[i] = str[3];
+            atkprice[i] = stoi(str[3]);
         }
         else if (i >=6 ){
-            defstat[i-6] = str[2];
+            defstat[i-6] = stoi(str[2]);
             defname[i-6] = str[0];
-            defprice[i-6] = str[3];
+            defprice[i-6] = stoi(str[3]);
         }
         i++;
     }
-    atkstat[6] = "10";
-    atkprice[6] = "0";
+    itemdef = "j";
+    itematk = "j";
+    atkstat[6] = 10;
+    atkprice[6] = 0;
     atkname[6] = "j"; 
-    defstat[6] = "10";
-    defprice[6] = "0";
+    defstat[6] = 10;
+    defprice[6] = 0;
     defname[6] = "j"; 
 }

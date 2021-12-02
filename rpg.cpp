@@ -19,10 +19,10 @@ string typeConverter(int index);
 string CharConverter(char val);
 char StringConverter(string nameval);
 int reverseConverter(string inputstring);
-int purchaseSwords(int money);
+int purchaseSwords(int money, Items Item1);
 string atkItemName(int index);
-int purchaseArmor(int money);
-int sellItems(int money);
+int purchaseArmor(int money, Items Item1);
+int sellItems(int money, Items Item1);
 int buyPotions(int money);
 string defItemName(int index);
 
@@ -354,12 +354,12 @@ int printShop(){
         cin >> switchop;
         switch(switchop){
             case 1:
-            money = purchaseSwords(money);
+            money = purchaseSwords(money, Item1);
             break;
             case 2: 
-            money = purchaseArmor(money);
+            money = purchaseArmor(money, Item1);
             case 3: 
-            money = sellItems(money);
+            money = sellItems(money, Item1);
             break;
             case 4: 
             //money = buyPotions(money);
@@ -498,8 +498,7 @@ char StringConverter(string nameval){
     else return 'z';
 }
 
-int purchaseSwords(int money){
-    Items Item1;
+int purchaseSwords(int money, Items Item1){
     int value;
     char buy;
     int price;
@@ -522,6 +521,7 @@ int purchaseSwords(int money){
             money += Item1.getAtkPrice(Item1.getAtkName());
             money -= Item1.getAtkPrice(typeConverter(value));
             Item1.setAtk(typeConverter(value));
+            Item1.setAtkName(value);
         }
         else {
             cout << "Transaction not completed. Please try again if this was a mistake." << endl;
@@ -532,6 +532,7 @@ int purchaseSwords(int money){
         cout << "[Y] [N]" << endl;
         cin >> buy;
         if (buy == 'y' || buy == 'Y') {
+            Item1.setAtkName(value);
             money -= Item1.getAtkPrice(typeConverter(value));
             Item1.setAtk(typeConverter(value));
         }
@@ -573,8 +574,7 @@ string atkItemName(int index){
     }
 }
 
-int purchaseArmor(int money){
-    Items Item1;
+int purchaseArmor(int money, Items Item1){
     int value;
     char buy;
     int price;
@@ -650,8 +650,7 @@ string defItemName(int index){
     }
 }
 
-int sellItems(int money){
-    Items Item1;
+int sellItems(int money, Items Item1){
     char sell;
     int price;
     int input;
