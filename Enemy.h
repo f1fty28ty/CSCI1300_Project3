@@ -1,4 +1,6 @@
 //Miles Silveria
+#ifndef ENEMY
+#define ENEMY
 #include <iostream>
 #include <string>
 
@@ -23,3 +25,4 @@ private:
     int money;
     int xp;
 };
+#endif

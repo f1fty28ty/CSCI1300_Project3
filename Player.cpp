@@ -41,9 +41,10 @@ void Player::setName(string newName){
 }
 void Player::lvlUp(){
     lvl++;
+    cout << "You Leveled up. ATK +10, Def +10, Max HP +5" << endl;
     dmg += 10;
     def += 10;
-    currentHealth += 5;
+    maxHealth += 5;
     money += (lvl * 20);
     currentExp = 0;
     maxExp *= 2;
@@ -130,3 +131,4 @@ char Player::getSword(){
 char Player::getArmor(){
     return armor;
 }
+

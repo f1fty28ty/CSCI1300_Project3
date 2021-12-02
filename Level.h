@@ -1,7 +1,6 @@
-#ifndef LEVEL
-#define LEVEL
 #include <iostream>
 #include <vector>
+#include "Player.h"
 #include "Enemy.h"
 
 using namespace std;
@@ -9,8 +8,8 @@ using namespace std;
 class Level{
 public:
     Level();
-    Level(string,int,Enemy newMobs[],int);
-
+    Level(string newName,int newNumMobs,Enemy newMobs[],int newDif);
+    void adv(Player player1);
     //mobs for the level.
     class Mobs{
     public:
@@ -37,4 +36,3 @@ private:
     int numMobs;
     int lvlmulti;
 };
-#endif

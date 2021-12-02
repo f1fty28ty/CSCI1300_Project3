@@ -1,3 +1,5 @@
+#ifndef PLAYER
+#define PLAYER
 #include <iostream>
 
 using namespace std;
@@ -54,3 +56,4 @@ private:
     string key;
     int numPotion;
 };
+#endif
