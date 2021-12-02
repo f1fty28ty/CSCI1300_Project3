@@ -3,9 +3,9 @@
 #include <string>
 #include <vector>
 
-//#include "Enemy.h"
+#include "Enemy.h"
 #include "Items.h"
-//#include "Level.h"
+#include "Level.h"
 #include "Map.h"
 #include "Player.h"
 #include "Shop.h"
@@ -31,7 +31,6 @@ int main(){
     //checks if there is a previous player on file
     //Will always play on that save for convenience
     Player player1 = Player();
-    string playerfileArr[13];
     ifstream playerFile;
     playerFile.open("player.txt");
     string line;
@@ -115,7 +114,76 @@ int main(){
     map.spawnShop(2, 5);
     map.spawnShop(3, 5);
     //Level stuff
-    //Level levels[6];
+    Enemy enemys[4];
+    Level levels[6];
+    string levelfileArr[7];
+    ifstream lvlFile;
+    lvlFile.open("levels.txt");
+    int numMobs;
+    int dif;
+    for(int i = 0; i < 6; i++){
+        switch(i){
+            case 0:
+            getline(lvlFile,line);
+            levels[i] = Level();
+            break;
+            case 1:
+            getline(lvlFile,line);
+            split(line, ',', levelfileArr, 7);
+            numMobs = stoi(levelfileArr[1]);
+            dif = stoi(levelfileArr[2]);
+            enemys[0].setName(levelfileArr[3]);
+            enemys[1].setName(levelfileArr[4]);
+            enemys[2].setName(levelfileArr[5]);
+            enemys[3].setName(levelfileArr[6]);
+            levels[i] = Level(levelfileArr[0], numMobs, enemys, dif);
+            break;
+            case 2:
+            getline(lvlFile,line);
+            split(line, ',', levelfileArr, 7);
+            numMobs = stoi(levelfileArr[1]);
+            dif = stoi(levelfileArr[2]);
+            enemys[0].setName(levelfileArr[3]);
+            enemys[1].setName(levelfileArr[4]);
+            enemys[2].setName(levelfileArr[5]);
+            enemys[3].setName(levelfileArr[6]);
+            levels[i] = Level(levelfileArr[0], numMobs, enemys, dif);
+            break;
+            case 3:
+            getline(lvlFile,line);
+            split(line, ',', levelfileArr, 7);
+            numMobs = stoi(levelfileArr[1]);
+            dif = stoi(levelfileArr[2]);
+            enemys[0].setName(levelfileArr[3]);
+            enemys[1].setName(levelfileArr[4]);
+            enemys[2].setName(levelfileArr[5]);
+            enemys[3].setName(levelfileArr[6]);
+            levels[i] = Level(levelfileArr[0], numMobs, enemys, dif);
+            break;
+            case 4:
+            getline(lvlFile,line);
+            split(line, ',', levelfileArr, 7);
+            numMobs = stoi(levelfileArr[1]);
+            dif = stoi(levelfileArr[2]);
+            enemys[0].setName(levelfileArr[3]);
+            enemys[1].setName(levelfileArr[4]);
+            enemys[2].setName(levelfileArr[5]);
+            enemys[3].setName(levelfileArr[6]);
+            levels[i] = Level(levelfileArr[0], numMobs, enemys, dif);
+            break;
+            case 5:
+            getline(lvlFile,line);
+            split(line, ',', levelfileArr, 7);
+            numMobs = stoi(levelfileArr[1]);
+            dif = stoi(levelfileArr[2]);
+            enemys[0].setName(levelfileArr[3]);
+            enemys[1].setName(levelfileArr[4]);
+            enemys[2].setName(levelfileArr[5]);
+            enemys[3].setName(levelfileArr[6]);
+            levels[i] = Level(levelfileArr[0], numMobs, enemys, dif);
+            break;
+        }
+    }
     char move;  // for storing user input
     int userInput;
     int level;
@@ -150,22 +218,22 @@ int main(){
             cout << "Would you like to enter" << endl;
             cout << "1 = Yes, 0 = No" << endl;
             cin >> userInput;
-            if(map.getPlayerColPosition() == 1 && map.getPlayerRowPosition() == 2){
+            if(map.getPlayerColPosition() == 2 && map.getPlayerRowPosition() == 1){
                 level = 0;
             }
-            if(map.getPlayerColPosition() == 1 && map.getPlayerRowPosition() == 5){
+            if(map.getPlayerColPosition() == 5 && map.getPlayerRowPosition() == 1){
                 level = 1;
             }
-            if(map.getPlayerColPosition() == 1 && map.getPlayerRowPosition() == 8){
+            if(map.getPlayerColPosition() == 8 && map.getPlayerRowPosition() == 1){
                 level = 2;
             }
-            if(map.getPlayerColPosition() == 4 && map.getPlayerRowPosition() == 2){
+            if(map.getPlayerColPosition() == 2 && map.getPlayerRowPosition() == 4){
                 level = 3;
             }
-            if(map.getPlayerColPosition() == 4 && map.getPlayerRowPosition() == 5){
+            if(map.getPlayerColPosition() == 5 && map.getPlayerRowPosition() == 4){
                 level = 4;
             }
-            if(map.getPlayerColPosition() == 4 && map.getPlayerRowPosition() == 8){
+            if(map.getPlayerColPosition() == 8 && map.getPlayerRowPosition() == 4){
                 level = 5;
             }
             cout << "Level: " << level << endl;
@@ -176,6 +244,28 @@ int main(){
                     cout << "2: Heal" << endl;
                     cout << "0: Leave" << endl;
                     cin >> userInput;
+                    if(userInput == 1){
+                        switch(level){
+                            case 0:
+                                levels[0].adv(player1);
+                            break;
+                            case 1:
+                                levels[1].adv(player1);
+                            break;
+                            case 2:
+                                levels[2].adv(player1);
+                            break;
+                            case 3:
+                                levels[3].adv(player1);
+                            break;
+                            case 4:
+                                levels[4].adv(player1);
+                            break;
+                            case 5:
+                                levels[5].adv(player1);
+                            break;
+                        }
+                    }
                 }
             }else if(userInput == 0){
                 cout << "Alright, Back to Map" << endl;
@@ -200,7 +290,6 @@ int main(){
     }
 
 }
-
 void printProfile(Player player1){
     cout << "==========" << player1.getName() << "'s Profile==========" << endl;
     cout << "Level: " << player1.getLvl() << endl;
