@@ -1,5 +1,5 @@
-#ifndef Level
-#define Level
+#ifndef LEVEL
+#define LEVEL
 #include <iostream>
 #include <vector>
 #include "Enemy.h"
@@ -9,7 +9,7 @@ using namespace std;
 class Level{
 public:
     Level();
-    Level(string,int,Enemy,int);
+    Level(string,int,Enemy newMobs[],int);
 
     //mobs for the level.
     class Mobs{
