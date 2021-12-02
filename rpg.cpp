@@ -1,6 +1,6 @@
 #include <iostream>
-#include <ifstream>
-#include <vectors>
+#include <fstream>
+#include <vector>
 #include <string>
 
 //#include "Enemy.h"
@@ -18,77 +18,77 @@ void printProfile(Player player1);
 int main(){
     //setting stuff for player
     //checks if there is a previous player on file
+    //Will always play on that save for convenience
     Player player1 = Player();
     string playerfileArr[13];
     ifstream playerFile;
     playerFile.open("player.txt");
     string line;
-    string temp;
-    int num;
+    long int num;
     char chars;
     for (int i = 0; i < 13; i++){
         switch(i){
             case 0:
-                temp = getLine(playerFile,line);
-                num = stoi(temp);
+                getline(playerFile,line);
+                num = stol(line);
                 player1.setCurrentHealth(num);
             break;
             case 1:
-                temp = getLine(playerFile,line);
-                num = stoi(temp);
+                getline(playerFile,line);
+                num = stol(line);
                 player1.setMaxHealth(num);
             break;
             case 2:
-                temp = getLine(playerFile,line);
-                player1.setName(temp)
+                getline(playerFile,line);
+                player1.setName(line);
             break;
             case 3:
-                temp = getLine(playerFile,line);
-                num = stoi(temp);
+                getline(playerFile,line);
+                num = stol(line);
                 player1.setDmg(num);
             break;
             case 4:
-                temp = getLine(playerFile,line);
-                num = stoi(temp);
+                getline(playerFile,line);
+                num = stol(line);
                 player1.setDef(num);
             break;            
             case 5:
-                temp = getLine(playerFile,line);
-                num = stoi(temp);
-                player1.setLvl(temp);
+                getline(playerFile,line);
+                num = stol(line);
+                player1.setLvl(num);
             break;            
             case 6:
-                temp = getLine(playerFile,line);
-                num = stoi(temp);
-                player1.setCurrentExp(num)
+                getline(playerFile,line);
+                num = stol(line);
+                player1.setCurrentExp(num);
             break;            
             case 7:
-                temp = getLine(playerFile,line);
-                num = stoi(temp);
-                player1.setMaxExp(num)
+                getline(playerFile,line);
+                num = stol(line);
+                player1.setMaxExp(num);
             break;
             case 8:
-                temp = getLine(playerFile,line);
-                num = stoi(temp);
+                getline(playerFile,line);
+                num = stol(line);
                 player1.setMoney(num);
             break;
             case 9:
-                temp = getLine(playerFile,line);
-                chars = temp[0];
+                getline(playerFile,line);
+                chars = line[0];
                 player1.setArmor(chars);
             break;
             case 10:
-                temp = getLine(playerFile,line);
-                chars = temp[0];
+                getline(playerFile,line);
+                chars = line[0];
                 player1.setSword(chars);
             break;            
             case 11:
-                temp = getLine(playerFile,line);
-                player1.setKey(temp)
+                getline(playerFile,line);
+                player1.setKey(line);
             break;            
             case 12:
-                temp = getLine(playerFile,line);
-                num = stoi(temp);
+                getline(playerFile,line);
+                num = stol(line);
                 player1.setPotions(num);
             break;            
         }
@@ -240,6 +240,8 @@ void printProfile(Player player1){
     }else{
         cout << "Key: " << player1.getKey() << endl;
     }
+    cout << "=================================================\n\n" << endl;
+    cout << "Scroll up to see Profile.\n";
 }
 
 int split (string str, char delim, string tempArr[], int arrSize){
