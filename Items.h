@@ -28,8 +28,8 @@ class Items{
     long int defstat[7];
     string defname[7];
     long int defprice[7];
-    string atkitemname;
-    string defitemname;
+    string atkItemName;
+    string defItemName;
     string itematk;
     string itemdef;
     int atk;

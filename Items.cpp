@@ -161,59 +161,59 @@ int Items::getDefPrice(string itemdef){
     }
 }
 string Items::getAtkName(){
-    return atkitemname;
+    return atkItemName;
 }
 
 string Items::getDefName(){
-    return defitemname;
+    return defItemName;
 }
 
 
 void Items::setAtkName(int index){
     if (index == 0){
-        atkitemname = atkname[6];
+        atkItemName = atkname[6];
     }
     else if (index == 1) {
-        atkitemname = atkname[0];
+        atkItemName = atkname[0];
     }
     else if (index == 2){
-        atkitemname = atkname[1];
+        atkItemName = atkname[1];
     }
     else if (index == 3){
-        atkitemname = atkname[2];
+        atkItemName = atkname[2];
     }
     else if (index == 4){
-        atkitemname = atkname[3];
+        atkItemName = atkname[3];
     }
     else if (index == 5){
-        atkitemname = atkname[4];
+        atkItemName = atkname[4];
     }
     else if (index == 6){
-        atkitemname = atkname[5];
+        atkItemName = atkname[5];
     }
 }
 
 void Items::setDefName(int index){
     if (index == 0) {
-        defitemname = defname[6];
+        defItemName = defname[6];
     }
     else if (index == 1) {
-        defitemname = defname[0];
+        defItemName = defname[0];
     }
     else if (index == 2){
-        defitemname = defname[1];
+        defItemName = defname[1];
     }
     else if (index == 3){
-        defitemname = defname[2];
+        defItemName = defname[2];
     }
     else if (index == 4){
-        defitemname = defname[3];
+        defItemName = defname[3];
     }
     else if (index == 5){
-        defitemname = defname[4];
+        defItemName = defname[4];
     }
     else if (index == 6){
-        defitemname = defname[5];
+        defItemName = defname[5];
     }
 }
 
@@ -230,15 +230,19 @@ void Items::populateStats(){
             atkname[i] = str[0];
             atkprice[i] = stoi(str[3]);
         }
-        else if (i >=6 ){
+        else if (i >= 6){
             defstat[i-6] = stoi(str[2]);
             defname[i-6] = str[0];
             defprice[i-6] = stoi(str[3]);
         }
         i++;
     }
+    atkItemName = "s";
+    defItemName = "s";
     itemdef = "j";
     itematk = "j";
+    atk = 10;
+    def = 10;
     atkstat[6] = 10;
     atkprice[6] = 0;
     atkname[6] = "j"; 
@@ -246,3 +250,19 @@ void Items::populateStats(){
     defprice[6] = 0;
     defname[6] = "j"; 
 }
+
+/*
+int main(){
+    Items Item1;
+    Item1.populateStats();
+    cout << Item1.getAtkName();
+    cout << Item1.getDefName();
+    for (int i = 1; i < 7; i++){
+    Item1.setAtkName(i);
+    Item1.setDefName(i);
+    cout << Item1.getAtkName();
+    cout << Item1.getDefName();
+    }
+}
+*/
+
