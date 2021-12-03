@@ -255,21 +255,27 @@ int main(){
             cin >> userInput;
             if(map.getPlayerColPosition() == 2 && map.getPlayerRowPosition() == 1){
                 level = 0;
+                cout << "-You arrive at the clearings of a forest. A man comes up to you.- \n Man: You look like a fresh Adventurer. There seems to be a slime problem. \n Man: I've heard they give a good source of money and xp for you to lvl up." << endl;
             }
             if(map.getPlayerColPosition() == 5 && map.getPlayerRowPosition() == 1){
                 level = 1;
+                cout << "-You venture to a nearby town. You over hear from the Guild that Wolfs, Zombies, Rats, and Red Necks live near this area.- \n -We should get some good rewards from them.-" << endl;
             }
             if(map.getPlayerColPosition() == 8 && map.getPlayerRowPosition() == 1){
                 level = 2;
+                cout << "-You over hear screams for help from the nearby village.- \n Villager: Please help us. The Elder Dragon's legion of goblins to come invade." << endl;
             }
             if(map.getPlayerColPosition() == 2 && map.getPlayerRowPosition() == 4){
                 level = 3;
+                cout << "-As you travel along the road to the Elder Dragon's lair- \n -You are suddenly swarmed by bandits.-" << endl;
             }
             if(map.getPlayerColPosition() == 5 && map.getPlayerRowPosition() == 4){
                 level = 4;
+                cout << "-You have traveled one step closer to the Elder Dragon's Lair- \n -But first we must deal with his Spawn-" << endl;
             }
             if(map.getPlayerColPosition() == 8 && map.getPlayerRowPosition() == 4){
                 level = 5;
+                cout << "-You have arrived at the Elder Dragon's front door.-" << endl;
             }
             cout << "Level: " << level << endl;
             if(userInput == 1){
@@ -422,7 +428,7 @@ void boss(Player &player1, Items &Item1){
     else {
         dmgreduc = 1;
     }
-    cout << "You have entered a fight against the final boss." << endl;
+    cout << "You have entered a fight against the Elder Dragon." << endl;
     cout << "\n";
     while (bossalive == 0){
         ran = (rand() % 30) + 60;
