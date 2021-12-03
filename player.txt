@@ -6,7 +6,7 @@ Gandolf DragonBorne
 0
 0
 100
-100000
+100
 j
 j
 None
