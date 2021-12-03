@@ -25,7 +25,7 @@ int purchaseArmor(int money, Items &Item1);
 int sellItems(int money, Items &Item1);
 int buyPotions(int money, Player &player1);
 string defItemName(int index);
-
+void adv(Player &player1, Enemy enemys[]);
 
 int main(){
     //setting stuff for player
@@ -34,9 +34,6 @@ int main(){
     Player player1 = Player();
     ifstream playerFile;
     playerFile.open("player.txt");
-    Items Item1;
-    Shop Shop1;
-    Item1.populateStats();
     string line;
     long int num;
     char chars;
@@ -246,29 +243,47 @@ int main(){
                     cout << "===What would you like to do===" << endl;
                     cout << "1: Adventure" << endl;
                     cout << "2: Heal" << endl;
+                    cout << "3: Print Profile" << endl;
                     cout << "0: Leave" << endl;
                     cin >> userInput;
                     if(userInput == 1){
                         switch(level){
                             case 0:
-                                levels[0].adv(player1);
+                                levels[0].setEnemys(enemys);
+                                adv(player1, enemys);
                             break;
                             case 1:
-                                levels[1].adv(player1);
+                                levels[1].setEnemys(enemys);
+                                adv(player1, enemys);
                             break;
                             case 2:
-                                levels[2].adv(player1);
+                                levels[2].setEnemys(enemys);
+                                adv(player1, enemys);
                             break;
                             case 3:
-                                levels[3].adv(player1);
+                                levels[3].setEnemys(enemys);
+                                adv(player1, enemys);
                             break;
                             case 4:
-                                levels[4].adv(player1);
+                                levels[4].setEnemys(enemys);
+                                adv(player1, enemys);
                             break;
                             case 5:
-                                levels[5].adv(player1);
+                                levels[5].setEnemys(enemys);
+                                adv(player1, enemys);
                             break;
                         }
+                    }
+                    if(userInput == 2){
+                        player1.heal();
+                        cout << "You have been healed" << endl;
+                    }
+                    if(userInput == 3){
+                        printProfile(player1);
+                    }
+                    if(userInput == 0){
+                        userInput = 1;
+                        break;
                     }
                 }
             }else if(userInput == 0){
@@ -293,6 +308,49 @@ int main(){
         }
     }
 
+}
+void adv(Player &player1, Enemy enemys[]){
+    srand(time(NULL));
+    int ran = (rand() % 4) + 0;
+    int playerHealth = player1.getCurrentHealth();
+    int playerDef = player1.getDef();
+    int playerDmg = player1.getDmg();
+    int playerXp = player1.getCurrentExp();
+    int playerMoney = player1.getMoney();
+    int mobDmg = enemys[ran].getDmg();
+    string mobName = enemys[ran].getName();
+    int mobXp = (rand() % enemys[ran].getXp()) + 1;
+    int mobMoney = (rand() % enemys[ran].getMoney()) + 1;
+    if((playerDef <= mobDmg && playerDmg >= mobDmg) && (playerHealth -= mobDmg) > 0){
+        playerHealth -= (mobDmg - (playerDmg / 2));
+        cout << player1.getName() << " Has Defeated a(n) " << mobName << "!" << endl;
+        cout << player1.getName() << " got +" << mobXp << "XP and +" << mobMoney << " coins!" << endl;
+        cout << "HP left " << playerHealth << "/" << player1.getMaxHealth() << endl;
+        player1.addExp(mobXp);
+        playerMoney += mobMoney;
+        player1.setMoney(playerMoney);
+        player1.setCurrentHealth(playerHealth);
+    }else if(playerDef > mobDmg){
+        cout << player1.getName() << " Has Defeated a(n) " << mobName << "!" << endl;
+        cout << player1.getName() << " got +" << mobXp << "XP and +" << mobMoney << " coins!" << endl;
+        cout << "HP left " << playerHealth << "/" << player1.getMaxHealth() << endl;
+        player1.addExp(mobXp);
+        playerMoney += mobMoney;
+        player1.setMoney(playerMoney);
+    }else if((playerHealth -= mobDmg) <= 0){
+        cout << player1.getName() << "has died and lost some Money" << endl;
+        player1.setMoney(player1.getMoney() - 150);
+    }else{
+        playerHealth -= (mobDmg - (playerDmg / 2));
+        cout << player1.getName() << " Has Defeated a(n) " << mobName << "!" << endl;
+        cout << player1.getName() << " got +" << mobXp << "XP and +" << mobMoney << " coins!" << endl;
+        cout << "HP left " << playerHealth << "/" << player1.getMaxHealth() << endl;
+        player1.addExp(mobXp);
+        playerMoney += mobMoney;
+        player1.setMoney(playerMoney); 
+        player1.setCurrentHealth(playerHealth);
+    }
+    
 }
 void printProfile(Player player1){
     cout << "==========" << player1.getName() << "'s Profile==========" << endl;
