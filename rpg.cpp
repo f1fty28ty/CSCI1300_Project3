@@ -14,17 +14,18 @@ using namespace std;
 
 int split (string str, char delim, string tempArr[], int arrSize);
 void printProfile(Player player1);
-int printShop();
+int printShop(Items &Item1, Player &player1, Shop &Shop1);
 string typeConverter(int index);
 string CharConverter(char val);
 char StringConverter(string nameval);
 int reverseConverter(string inputstring);
-int purchaseSwords(int money, Items Item1);
+int purchaseSwords(int money, Items &Item1);
 string atkItemName(int index);
-int purchaseArmor(int money, Items Item1);
-int sellItems(int money, Items Item1);
-int buyPotions(int money);
+int purchaseArmor(int money, Items &Item1);
+int sellItems(int money, Items &Item1);
+int buyPotions(int money, Player &player1);
 string defItemName(int index);
+
 
 int main(){
     //setting stuff for player
@@ -33,6 +34,9 @@ int main(){
     Player player1 = Player();
     ifstream playerFile;
     playerFile.open("player.txt");
+    Items Item1;
+    Shop Shop1;
+    Item1.populateStats();
     string line;
     long int num;
     char chars;
@@ -281,11 +285,11 @@ int main(){
             cout << "1 = Yes, 0 = No" << endl;
             cin >> userInput;
             if(userInput == 1){
-                printShop();
+                Shop1.setBalance(printShop(Item1, player1, Shop1));
+                player1.setMoney(Shop1.getBalance());
             }else{
                 cout << "Alright bye." << endl;
             }
-            
         }
     }
 
@@ -422,10 +426,8 @@ int split (string str, char delim, string tempArr[], int arrSize){
     
 }
 
-int printShop(){
-    Items Item1;
-    Item1.populateStats();
-    long int money = 100000000;
+int printShop(Items &Item1, Player &player1, Shop &Shop1){
+    int money = Shop1.getBalance();
     int whileop = 1;
     int switchop;
     int cost = 0;
@@ -452,8 +454,8 @@ int printShop(){
             money = sellItems(money, Item1);
             break;
             case 4: 
-            //money = buyPotions(money);
-            cout << "wip" << endl;
+            money = buyPotions(money, player1);
+            break;
             case 5:
             cout << "Good Luck on your travels!" << endl;
             cout << "\n";
@@ -465,6 +467,10 @@ int printShop(){
             break;
         }
     }
+    player1.setDmg(Item1.getAtk());
+    player1.setDef(Item1.getDef());
+    player1.setSword(StringConverter(Item1.getAtkName()));
+    player1.setArmor(StringConverter(Item1.getDefName()));
     return money;
 }
 
@@ -499,7 +505,6 @@ string typeConverter(int index){
     }
 }
 
-
 int reverseConverter(string inputstring){
     int endval;
     if (inputstring == "s") {
@@ -530,7 +535,6 @@ int reverseConverter(string inputstring){
         return 0;
     }
 }
-
 
 string CharConverter(char val){
     string endval;
@@ -590,27 +594,30 @@ char StringConverter(string nameval){
     else return 'z';
 }
 
-int purchaseSwords(int money, Items Item1){
+int purchaseSwords(int money, Items &Item1){
     int value;
     char buy;
-    int price;
+    int price1;
+    cout << "Your current balance: " << money << endl;
+    cout << "\n";
     cout << "Swords for purchase" << endl;
     for (int i = 1; i < 7; i++){
-        price = Item1.getAtkPrice(typeConverter(i));
+        price1 = Item1.getAtkPrice(typeConverter(i));
         Item1.setAtk(typeConverter(i));
-        cout << "Item " << i << ": " << atkItemName(i) << " :: " << price << " Coins" <<  endl;
+        cout << "Item " << i << ": " << atkItemName(i) << " :: " << price1 << " Coins" <<  endl;
         cout << "Item " << i << " Stats: " << Item1.getAtk() << " Attack " << endl;
         cout << "\n";
     }
     cout << "Which sword would you like to buy?" << endl;
     cin >> value;
     if (Item1.getAtkName() != "j" && Item1.getDefPrice(typeConverter(value)) < money && value > 0 && value < 7){
+        price1 = Item1.getAtkPrice(Item1.getAtkName());
         cout << "You must sell your currently equipped sword before purchasing a new one" << endl;
         cout << "Would you like to proceed?" << endl;
         cout << "[Y] [N]" << endl;
         cin >> buy;
         if (buy == 'y' || buy == 'Y') {
-            money += Item1.getAtkPrice(Item1.getAtkName());
+            money += price1;
             money -= Item1.getAtkPrice(typeConverter(value));
             Item1.setAtk(typeConverter(value));
             Item1.setAtkName(value);
@@ -671,27 +678,30 @@ string atkItemName(int index){
     }
 }
 
-int purchaseArmor(int money, Items Item1){
+int purchaseArmor(int money, Items &Item1){
     int value;
     char buy;
-    int price;
+    int price1;
+    cout << "Your current balance: " << money << endl;
+    cout << "\n";
     cout << "Armor sets for purchase" << endl;
     for (int i = 1; i < 7; i++){
-        price = Item1.getDefPrice(typeConverter(i));
+        price1 = Item1.getDefPrice(typeConverter(i));
         Item1.setDef(typeConverter(i));
-        cout << "Item " << (i) << ": " << defItemName(i) << " :: " << price << " Coins" <<  endl;
+        cout << "Item " << (i) << ": " << defItemName(i) << " :: " << price1 << " Coins" <<  endl;
         cout << "Item " << (i) << " Stats: " << Item1.getDef() << " Attack " << endl;
         cout << "\n";
     }
     cout << "Which armor set would you like to buy?" << endl;
     cin >> value;
     if (Item1.getDefName() != "j" && Item1.getDefPrice(typeConverter(value)) < money && value > 0 && value < 7){
+        price1 = Item1.getDefPrice(Item1.getDefName());
         cout << "You must sell your currently equipped armor set before purchasing a new one" << endl;
         cout << "Would you like to proceed?" << endl;
         cout << "[Y] [N]" << endl;
         cin >> buy;
         if (buy == 'y' || buy == 'Y') {
-            money += Item1.getDefPrice(Item1.getDefName());
+            money += price1;
             money -= Item1.getDefPrice(typeConverter(value));
             Item1.setDef(typeConverter(value));
             Item1.setDefName(value);
@@ -752,16 +762,17 @@ string defItemName(int index){
     }
 }
 
-int sellItems(int money, Items Item1){
+int sellItems(int money, Items &Item1){
     char sell;
-    int price;
+    int price1;
+    int price2;
     int input;
     // ask for input from miles on how inventory is checked
     if (Item1.getDefName() != "j" || Item1.getAtkName() != "j"){
         cout << "Which item would you like to sell?" << endl;
         if (Item1.getAtkName() == "j" && Item1.getDefName() != "j"){
-            price = Item1.getDefPrice(Item1.getDefName());
-            cout << "Armor: " << defItemName(reverseConverter(Item1.getDefName())) << " :: " << price << " coins" << endl;
+            price1 = Item1.getDefPrice(Item1.getDefName());
+            cout << "Armor: " << defItemName(reverseConverter(Item1.getDefName())) << " :: " << price1 << " coins" << endl;
             cout << "You have no sword to sell." << endl;
             cout << "Sell this item?" << endl;
             cout << "[Y] [N]" << endl;
@@ -770,7 +781,10 @@ int sellItems(int money, Items Item1){
                 Item1.getDefPrice(Item1.getDefName());
                 Item1.setDefName(0);
                 Item1.setDef("j");
-                money += Item1.getDefPrice(Item1.getAtkName());
+                money += price1;
+                cout << "\n";
+                cout << "Your current balance: " << money << endl;
+                cout << "\n";
                 cout << "You no longer have any armor equipped. You should consider purchasing some before you leave the shop." << endl;
             }
             else {
@@ -778,9 +792,9 @@ int sellItems(int money, Items Item1){
             }
         }
         else if (Item1.getDefName() == "j" && Item1.getAtkName() != "j"){
-            price = Item1.getAtkPrice(Item1.getAtkName());
+            price1 = Item1.getAtkPrice(Item1.getAtkName());
             cout << "You have no armor to sell." << endl;
-            cout << " Sword: " << atkItemName(reverseConverter(Item1.getAtkName())) << " :: " << price << " coins" << endl;
+            cout << "Sword: " << atkItemName(reverseConverter(Item1.getAtkName())) << " :: " << price1 << " coins" << endl;
             cout << "\n";
             cout << "Sell this item?" << endl;
             cout << "[Y] [N]" << endl;
@@ -789,7 +803,10 @@ int sellItems(int money, Items Item1){
                 Item1.getAtkPrice(Item1.getAtkName());
                 Item1.setAtkName(0);
                 Item1.setAtk("j");
-                money += Item1.getAtkPrice(Item1.getAtkName());
+                money += price1;
+                cout << "\n";
+                cout << "Your current balance: " << money << endl;
+                cout << "\n";
                 cout << "You no longer have a sword equipped. You should consider purchasing one before you leave the shop." << endl;
             }
             else {
@@ -797,17 +814,17 @@ int sellItems(int money, Items Item1){
             }
         }
         else {
-            price = Item1.getDefPrice(Item1.getDefName());
-            cout << "Armor: " << defItemName(reverseConverter(Item1.getDefName())) << " :: " << price << " coins" << endl;
-            price = Item1.getAtkPrice(Item1.getAtkName());
-            cout << "Sword: " << atkItemName(reverseConverter(Item1.getAtkName())) << " :: " << price << " coins" << endl;
+            price1 = Item1.getDefPrice(Item1.getDefName());
+            cout << "Armor: " << defItemName(reverseConverter(Item1.getDefName())) << " :: " << price1 << " coins" << endl;
+            price2 = Item1.getAtkPrice(Item1.getAtkName());
+            cout << "Sword: " << atkItemName(reverseConverter(Item1.getAtkName())) << " :: " << price2 << " coins" << endl;
             cout << "\n";
             cout << "Which of these items would you like to sell?" << endl;
             cout << "1. Sword    2. Armor     3. Both" << endl;
             cin >> input;
             if (input == 1){
-                price = Item1.getAtkPrice(Item1.getAtkName());
-                cout << "Sword: " << atkItemName(reverseConverter(Item1.getAtkName())) << " :: " << price << " coins" << endl;
+                price1 = Item1.getAtkPrice(Item1.getAtkName());
+                cout << "Sword: " << atkItemName(reverseConverter(Item1.getAtkName())) << " :: " << price1 << " coins" << endl;
                 cout << "\n";
                 cout << "Sell this item?" << endl;
                 cout << "[Y] [N]" << endl;
@@ -816,7 +833,10 @@ int sellItems(int money, Items Item1){
                     Item1.getAtkPrice(Item1.getAtkName());
                     Item1.setAtkName(0);
                     Item1.setAtk("j");
-                    money += Item1.getAtkPrice(Item1.getAtkName());
+                    money += price1;
+                    cout << "\n";
+                    cout << "Your current balance: " << money << endl;
+                    cout << "\n";
                     cout << "You no longer have a sword equipped. You should consider purchasing one before you leave the shop." << endl;
             }
             else {
@@ -824,16 +844,19 @@ int sellItems(int money, Items Item1){
             }
             }
             else if (input == 2){
-                price = Item1.getDefPrice(Item1.getDefName());
-                cout << "Armor: " << defItemName(reverseConverter(Item1.getDefName())) << " :: " << price << " coins" << endl;
-                cin >> sell;
+                price1 = Item1.getDefPrice(Item1.getDefName());
+                cout << "Armor: " << defItemName(reverseConverter(Item1.getDefName())) << " :: " << price1 << " coins" << endl;
                 cout << "Sell this item?" << endl;
                 cout << "[Y] [N]" << endl;
+                cin >> sell;
                 if (sell == 'y' || sell == 'Y') {
                     Item1.getDefPrice(Item1.getDefName());
                     Item1.setDefName(0);
                     Item1.setDef("j");
-                    money += Item1.getDefPrice(Item1.getAtkName());
+                    money += price1;
+                    cout << "\n";
+                    cout << "Your current balance: " << money << endl;
+                    cout << "\n";
                     cout << "You no longer have any armor equipped. You should consider purchasing some before you leave the shop." << endl;
                 }
                 else {
@@ -841,10 +864,10 @@ int sellItems(int money, Items Item1){
                 }
             }
             else if (input == 3){
-                price = Item1.getAtkPrice(Item1.getAtkName());
-                cout << "Sword: " << atkItemName(reverseConverter(Item1.getAtkName())) << " :: " << price << " coins" << endl;
-                price = Item1.getDefPrice(Item1.getDefName());
-                cout << "Armor: " << defItemName(reverseConverter(Item1.getDefName())) << " :: " << price << " coins" << endl;
+                price1 = Item1.getAtkPrice(Item1.getAtkName());
+                cout << "Sword: " << atkItemName(reverseConverter(Item1.getAtkName())) << " :: " << price1 << " coins" << endl;
+                price2 = Item1.getDefPrice(Item1.getDefName());
+                cout << "Armor: " << defItemName(reverseConverter(Item1.getDefName())) << " :: " << price2 << " coins" << endl;
                 cout << "Sell these items?" << endl;
                 cout << "[Y] [N]" << endl;
                 cin >> sell;
@@ -852,11 +875,14 @@ int sellItems(int money, Items Item1){
                     Item1.getAtkPrice(Item1.getAtkName());
                     Item1.setAtkName(0);
                     Item1.setAtk("j");
-                    money += Item1.getAtkPrice(Item1.getAtkName());
+                    money += price1;
                     Item1.getDefPrice(Item1.getDefName());
                     Item1.setDefName(0);
                     Item1.setDef("j");
-                    money += Item1.getDefPrice(Item1.getAtkName());
+                    money += price2;
+                    cout << "\n";
+                    cout << "Your current balance: " << money << endl;
+                    cout << "\n";
                     cout << "You no longer any gear equipped. You should consider purchasing more gear before you leave the shop." << endl;
             }
             }
@@ -867,6 +893,67 @@ int sellItems(int money, Items Item1){
     }
     else{
         cout << "You have no items to sell" << endl;
+    }
+    cout << "\n";
+    return money;
+}
+
+int buyPotions(int money, Player &player1){
+    int numpot;
+    int existpot;
+    char sell;
+    int totalpot;
+    if (player1.getPotions() == 0){
+        cout << "You do not currently have any potions." << endl;
+        cout << "Potions are 20 coins each and you currently have " << money << " coins." << endl;
+        cout << "How many would you like to purchase?" << endl;
+        cin >> numpot;
+        if (numpot >= 0 && (numpot * 20 < money)){
+            cout << "Do you want to purchase " << numpot << " potions?" << endl;
+            cout << "[Y] [N]" << endl;
+                cin >> sell;
+                if (sell == 'y' || sell == 'Y') {
+                    player1.setPotions(numpot);
+                    money -= (numpot * 20);
+                    cout << "\n";
+                    cout << "Your current balance: " << money << endl;
+                    cout << "\n";
+                }
+                else {
+                    cout << "Transaction not completed. Please try again if this was a mistake." << endl;
+                }
+        }
+        else {
+            cout << "Transaction not completed. Please try again if this was a mistake." << endl;
+        }
+
+    }
+    else {
+        existpot = player1.getPotions();
+        cout << "Potions are 20 coins each." << endl; 
+        cout << "You currently have " << money << " coins and " << existpot << " potions" << endl;
+        cout << "How many would you like to purchase?" << endl;
+        cin >> numpot;
+        if (numpot >= 0 && (numpot * 20 < money)){
+            cout << "Do you want to purchase " << numpot << " potions?" << endl;
+            cout << "[Y] [N]" << endl;
+                cin >> sell;
+                if (sell == 'y' || sell == 'Y') {
+                    player1.setPotions(numpot);
+                    totalpot = numpot + existpot;
+                    player1.setPotions(totalpot);
+                    money -= (numpot * 20);
+                    cout << "\n";
+                    cout << "Your current balance: " << money << endl;
+                    cout << "\n";
+                }
+                else {
+                    cout << "Transaction not completed. Please try again if this was a mistake." << endl;
+                }
+        }
+        else {
+            cout << "Transaction not completed. Please try again if this was a mistake." << endl;
+        }
     }
     return money;
 }

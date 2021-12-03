@@ -237,8 +237,8 @@ void Items::populateStats(){
         }
         i++;
     }
-    atkItemName = "s";
-    defItemName = "s";
+    atkItemName = "j";
+    defItemName = "j";
     itemdef = "j";
     itematk = "j";
     atk = 10;
@@ -251,18 +251,5 @@ void Items::populateStats(){
     defname[6] = "j"; 
 }
 
-/*
-int main(){
-    Items Item1;
-    Item1.populateStats();
-    cout << Item1.getAtkName();
-    cout << Item1.getDefName();
-    for (int i = 1; i < 7; i++){
-    Item1.setAtkName(i);
-    Item1.setDefName(i);
-    cout << Item1.getAtkName();
-    cout << Item1.getDefName();
-    }
-}
-*/
+
 
