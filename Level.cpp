@@ -52,45 +52,13 @@ Level::Level(string newName,int newNumMobs,Enemy newMobs[],int newDif){
         }
     }
 }
-
-void Level::adv(Player player1){
-    srand(time(NULL));
-    int ran = (rand() % 4) + 0;
-    int playerHealth = player1.getCurrentHealth();
-    int playerDef = player1.getDef();
-    int playerDmg = player1.getDmg();
-    int playerXp = player1.getCurrentExp();
-    int mobDmg = (rand() % lvlMobs[ran].getDmg()) + 1;
-    string mobName = lvlMobs[ran].getName();
-    int mobXp = (rand() % lvlMobs[ran].getXp()) + 1;
-    int mobMoney = (rand() % lvlMobs[ran].getMoney()) + 1;
-    if((playerDef <= mobDmg || playerDmg > mobDmg) && (playerHealth -= mobDmg) > 0){
-        playerHealth -= mobDmg - (playerDmg / 2);
-        cout << player1.getName() << " Has Defeated a(n) " << mobName << "!" << endl;
-        cout << player1.getName() << " got +" << mobXp << "XP and +" << mobMoney << "!" << endl;
-        cout << "HP left " << playerHealth << "/" << player1.getMaxHealth() << endl;
-        player1.addExp(mobXp);
-        player1.addMoney(mobMoney);
-        player1.setCurrentHealth(playerHealth);
-    }else if(playerDef > mobDmg){
-        cout << player1.getName() << " Has Defeated a(n) " << mobName << "!" << endl;
-        cout << player1.getName() << " got +" << mobXp << "XP and +" << mobMoney << "!" << endl;
-        cout << "HP left " << playerHealth << "/" << player1.getMaxHealth() << endl;
-        player1.addExp(mobXp);
-        player1.addMoney(mobMoney);
-    }else if((playerHealth -= mobDmg) <= 0){
-        cout << player1.getName() << "has died and lost some Money" << endl;
-        player1.setMoney(player1.getMoney() - 150);
-    }else{
-        playerHealth -= mobDmg - (playerDmg / 2);
-        cout << player1.getName() << " Has Defeated a(n) " << mobName << "!" << endl;
-        cout << player1.getName() << " got +" << mobXp << "XP and +" << mobMoney << "!" << endl;
-        cout << "HP left " << playerHealth << "/" << player1.getMaxHealth() << endl;
-        player1.addExp(mobXp);
-        player1.addMoney(mobMoney); 
-        player1.setCurrentHealth(playerHealth);
+void Level::setEnemys(Enemy enemys[]){
+    for(int i = 0; i < 4; i++){
+        enemys[i].setDmg(lvlMobs[i].getDmg());
+        enemys[i].setMoney(lvlMobs[i].getMoney());
+        enemys[i].setName(lvlMobs[i].getName());
+        enemys[i].setXp(lvlMobs[i].getXp());
     }
-    
 }
 
 Level::Mobs::Mobs(){

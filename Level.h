@@ -9,7 +9,7 @@ class Level{
 public:
     Level();
     Level(string newName,int newNumMobs,Enemy newMobs[],int newDif);
-    void adv(Player player1);
+    void setEnemys(Enemy enemys[]);
     //mobs for the level.
     class Mobs{
     public:
