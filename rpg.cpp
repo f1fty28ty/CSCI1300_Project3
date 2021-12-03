@@ -28,6 +28,7 @@ int sellItems(int money, Items &Item1);
 int buyPotions(int money, Player &player1);
 string defItemName(int index);
 void adv(Player &player1, Enemy enemys[]);
+void boss(Player &player1, Items &Item1);
 
 int main(){
     time_t lvlstart;
@@ -303,8 +304,7 @@ int main(){
                                 adv(player1, enemys);
                             break;
                             case 5:
-                                levels[5].setEnemys(enemys);
-                                adv(player1, enemys);
+                                 boss(player1, Item1);
                             break;
                         }
                     }
@@ -394,6 +394,98 @@ void adv(Player &player1, Enemy enemys[]){
     }
     
 }
+
+void boss(Player &player1, Items &Item1){
+    srand(time(NULL));
+    double ran;
+    double crit;
+    int numpot = player1.getPotions();
+    double playerHealth = player1.getCurrentHealth();
+    double playerDef = player1.getDef();
+    int playerDmg = player1.getDmg();
+    int playerXp = player1.getCurrentExp();
+    int playerMoney = player1.getMoney();
+    double bosshealth = 10000;
+    int bossalive = 0;
+    int menuop = 0;
+    double dmgreduc;
+    int potused = 0;
+    int dmglowerbound = 1*(playerDmg/2);
+    int dmgupperbound = 3*(playerDmg/2);
+    dmgupperbound = dmgupperbound - dmglowerbound;
+    if (playerDef >= 100 && Item1.getAtkName() != "j"){
+        dmgreduc = 0.75-(playerDef/1000);
+    }
+    else if (Item1.getAtkName() != "j" && playerDef < 100) {
+        dmgreduc = 0.75-(playerDef/100);
+    }
+    else {
+        dmgreduc = 1;
+    }
+    cout << "You have entered a fight against the final boss." << endl;
+    cout << "\n";
+    while (bossalive == 0){
+        ran = (rand() % 30) + 60;
+        crit = (rand() % dmgupperbound) + dmglowerbound;
+        cout << "Current Player Health: " << playerHealth << endl;
+        cout << "\n";
+        cout << "Current Boss Health: " << bosshealth << endl;
+        cout << "\n";
+        cout << "What would you like to do?" << endl;
+        cout << "\n";
+        cout << "1. Swing your sword." << endl;
+        cout << "2. Try your luck with a critical attack." << endl;
+        if (numpot > 0){
+            cout << "3. Heal yourself with a potion" << endl;
+        }
+        else {
+            cout << "3. You have no potions to heal with. Selecting this will result in a loss of turn." << endl;
+        }
+        cin >> menuop;
+        switch (menuop){
+            case 1:
+            bosshealth -= playerDmg;
+            cout << "You damaged the boss for " << playerDmg << " Health" << endl;
+            playerHealth -= (ran * dmgreduc);
+            break;
+            case 2:
+            cout << crit << endl;
+            if (crit < player1.getDmg()){
+                cout << "You swung and missed, leaving yourself wide open." << endl;
+            }
+            else {
+                bosshealth -= crit;
+                cout << "You swing and hit the boss for " << crit << " health!" << endl;
+            }
+            playerHealth -= (ran * dmgreduc);
+            break;
+            case 3:
+            if (numpot > 0){
+                playerHealth += 120;
+                numpot --;
+                potused++;
+            }
+            playerHealth -= (ran * dmgreduc);
+            break;
+            default:
+            cout << "You didn't know what to do and lost your turn." << endl;
+        }
+        cout << "The boss did " << (ran * dmgreduc) << " damage to you that turn." << endl;
+        if (bosshealth <= 0){
+            bossalive = 1;
+            cout << "Congratulations on beating the boss!" << endl;
+            player1.addExp(10000000);
+            player1.setMoney(player1.getMoney()+100000000);
+        }
+        else if (playerHealth <= 0){
+            cout << "You unfortunately perished during the fight with the boss." << endl;
+            bossalive = 1;
+            player1.setMoney(player1.getMoney() - 150);
+        }
+        player1.setPotions(player1.getPotions()-potused);
+    }
+}
+
 void printProfile(Player player1){
     cout << "==========" << player1.getName() << "'s Profile==========" << endl;
     cout << "Level: " << player1.getLvl() << endl;
