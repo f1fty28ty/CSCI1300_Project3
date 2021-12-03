@@ -17,4 +17,6 @@ Date: December 2, 2021
 ------------------------
 ABOUT THIS PROJECT
 ------------------------
-This Project is a text based RPG
+This Project is a Textbased RPG where the player goes through multiple levels testing their might against mobs and the final boss. Building up their cash to purchase the best of the best equipments to be able to save the world.
+
+
