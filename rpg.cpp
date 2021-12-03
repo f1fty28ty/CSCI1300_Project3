@@ -1,3 +1,4 @@
+//Miles Silveria && Evan Zachary
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -13,9 +14,11 @@
 
 
 using namespace std;
-
+//Miles Silveria
 int split (string str, char delim, string tempArr[], int arrSize);
 void printProfile(Player player1);
+void adv(Player &player1, Enemy enemys[]);
+//Evan Zachary
 int printShop(Items &Item1, Player &player1);
 string typeConverter(int index);
 string CharConverter(char val);
@@ -27,7 +30,6 @@ int purchaseArmor(int money, Items &Item1);
 int sellItems(int money, Items &Item1);
 int buyPotions(int money, Player &player1);
 string defItemName(int index);
-void adv(Player &player1, Enemy enemys[]);
 void boss(Player &player1, Items &Item1);
 
 int main(){
