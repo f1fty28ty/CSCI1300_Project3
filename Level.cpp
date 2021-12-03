@@ -17,7 +17,7 @@ Level::Level(){
 }
 Level::Level(string newName,int newNumMobs,Enemy newMobs[],int newDif){
     Level();
-    lvlmulti = (1 * 10 * newDif);
+    lvlmulti = (1 * 2 * newDif);
     lvlname = newName;
     numMobs = 4;
     if(newNumMobs > numMobs){

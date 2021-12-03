@@ -2,6 +2,8 @@
 #include <fstream>
 #include <string>
 #include <vector>
+#include <stdlib.h>     /* srand, rand */
+#include <time.h> 
 
 #include "Enemy.h"
 #include "Items.h"
@@ -28,6 +30,9 @@ string defItemName(int index);
 void adv(Player &player1, Enemy enemys[]);
 
 int main(){
+    time_t lvlstart;
+    time_t lvlend;
+    double lvltimes[6];
     //sets item
     Items Item1;
     Item1.populateStats();
@@ -125,6 +130,10 @@ int main(){
     lvlFile.open("levels.txt");
     int numMobs;
     int dif;
+    //sorter vars
+    int runSorter = 1;
+    double sorterTemp;
+    double backupArr[6];
     for(int i = 0; i < 6; i++){
         switch(i){
             case 0:
@@ -210,6 +219,26 @@ int main(){
         cin >> move;
         cout << endl;
         if(move == 'x'){
+            cout << "Time Spent in lvls" << endl;
+            for(int i = 0; i < 6; i++){
+                backupArr[i] = lvltimes[i];
+            }
+            for(int i = 0; i < 6; i++){
+                for(int j = i+1; j < 6; j++){
+                    if(lvltimes[j] < lvltimes[i]){
+                        sorterTemp = lvltimes[i];
+                        lvltimes[i] = lvltimes[j];
+                        lvltimes[j] = sorterTemp;
+                    }
+                }
+            }
+            for(int i = 0; i < 6; i++){
+                for(int j = 0; j < 6; j++){
+                    if(lvltimes[i] == backupArr[j]){
+                        cout << "Level " << j << ": " << lvltimes[j] << "ms" << endl;
+                    }
+                }
+            }
             cout << "Adios Amigo!!" << endl;
             break;
         }else if(move == 'p'){
@@ -244,6 +273,7 @@ int main(){
             cout << "Level: " << level << endl;
             if(userInput == 1){
                 while(userInput != 0){
+                    lvlstart = time(nullptr);
                     cout << "===What would you like to do===" << endl;
                     cout << "1: Adventure" << endl;
                     cout << "2: Heal" << endl;
@@ -286,6 +316,8 @@ int main(){
                         printProfile(player1);
                     }
                     if(userInput == 0){
+                        lvlend = time(nullptr);
+                        lvltimes[level] += difftime(lvlend, lvlstart);
                         userInput = 1;
                         break;
                     }

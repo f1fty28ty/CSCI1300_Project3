@@ -47,7 +47,7 @@ void Player::lvlUp(){
     maxHealth += 5;
     money += (lvl * 20);
     currentExp = 0;
-    maxExp *= 2;
+    maxExp += 100;
 }
 void Player::setDmg(int newDmg){
     dmg = (newDmg + (lvl * 10));
