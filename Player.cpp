@@ -50,10 +50,10 @@ void Player::lvlUp(){
     maxExp *= 2;
 }
 void Player::setDmg(int newDmg){
-    dmg = newDmg;
+    dmg = (newDmg + (lvl * 10));
 }
 void Player::setDef(int newDef){
-    def = newDef;
+    def = (newDef + (lvl * 10));
 }
 void Player::addMoney(int newMoney){
     money += newMoney;

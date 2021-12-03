@@ -8,13 +8,13 @@
 #include "Level.h"
 #include "Map.h"
 #include "Player.h"
-#include "Shop.h"
+
 
 using namespace std;
 
 int split (string str, char delim, string tempArr[], int arrSize);
 void printProfile(Player player1);
-int printShop(Items &Item1, Player &player1, Shop &Shop1);
+int printShop(Items &Item1, Player &player1);
 string typeConverter(int index);
 string CharConverter(char val);
 char StringConverter(string nameval);
@@ -28,6 +28,9 @@ string defItemName(int index);
 void adv(Player &player1, Enemy enemys[]);
 
 int main(){
+    //sets item
+    Items Item1;
+    Item1.populateStats();
     //setting stuff for player
     //checks if there is a previous player on file
     //Will always play on that save for convenience
@@ -207,6 +210,7 @@ int main(){
         cin >> move;
         cout << endl;
         if(move == 'x'){
+            cout << "Adios Amigo!!" << endl;
             break;
         }else if(move == 'p'){
             printProfile(player1);
@@ -287,6 +291,7 @@ int main(){
                     }
                 }
             }else if(userInput == 0){
+                userInput = 1;
                 cout << "Alright, Back to Map" << endl;
             }else{
                 cout << "Invalid Input, Back to Map" << endl;
@@ -300,11 +305,14 @@ int main(){
             cout << "1 = Yes, 0 = No" << endl;
             cin >> userInput;
             if(userInput == 1){
-                Shop1.setBalance(printShop(Item1, player1, Shop1));
-                player1.setMoney(Shop1.getBalance());
+                player1.setMoney(printShop(Item1, player1));
+            }else if(userInput == 0){
+                userInput = 1;
+                cout << "Alright, Back to Map" << endl;
             }else{
-                cout << "Alright bye." << endl;
+                cout << "Invalid Input, Back to Map" << endl;
             }
+
         }
     }
 
@@ -312,6 +320,8 @@ int main(){
 void adv(Player &player1, Enemy enemys[]){
     srand(time(NULL));
     int ran = (rand() % 4) + 0;
+    int halfMobXP = enemys[ran].getXp();
+    int halfMobMoney = enemys[ran].getMoney();
     int playerHealth = player1.getCurrentHealth();
     int playerDef = player1.getDef();
     int playerDmg = player1.getDmg();
@@ -319,8 +329,8 @@ void adv(Player &player1, Enemy enemys[]){
     int playerMoney = player1.getMoney();
     int mobDmg = enemys[ran].getDmg();
     string mobName = enemys[ran].getName();
-    int mobXp = (rand() % enemys[ran].getXp()) + 1;
-    int mobMoney = (rand() % enemys[ran].getMoney()) + 1;
+    int mobXp = (rand() % enemys[ran].getXp()) + halfMobXP;
+    int mobMoney = (rand() % enemys[ran].getMoney()) + halfMobMoney;
     if((playerDef <= mobDmg && playerDmg >= mobDmg) && (playerHealth -= mobDmg) > 0){
         playerHealth -= (mobDmg - (playerDmg / 2));
         cout << player1.getName() << " Has Defeated a(n) " << mobName << "!" << endl;
@@ -484,8 +494,8 @@ int split (string str, char delim, string tempArr[], int arrSize){
     
 }
 
-int printShop(Items &Item1, Player &player1, Shop &Shop1){
-    int money = Shop1.getBalance();
+int printShop(Items &Item1, Player &player1){
+    int money = player1.getMoney();
     int whileop = 1;
     int switchop;
     int cost = 0;
