@@ -1,3 +1,4 @@
+//Miles Silveria
 #ifndef PLAYER
 #define PLAYER
 #include <iostream>
